@@ -60,7 +60,7 @@
     </inertial>
     <visual>
       <geometry>
-        <box size="${l1} ${l_width} ${l_width}"/>
+        <box size="${l1*mul} ${l_width} ${l_width}"/>
       </geometry>
         <origin xyz="${l1*0.5} 0 0" rpy="0 0 0" />
       <material
@@ -71,9 +71,9 @@
     </visual>
     <collision>
       <geometry>
-         <box size="${l1} ${l_width} ${l_width}"/>
+         <box size="${l1*mul} ${l_width} ${l_width}"/>
       </geometry>
-        <origin xyz="${l1*0.5} 0 0" rpy="0 0 0" />
+        <origin xyz="${l1*0.5*mul} 0 0" rpy="0 0 0" />
     </collision>
   </link>
     <joint
@@ -101,7 +101,7 @@
       <geometry>
         <box size="${l2*mul} ${l_width} ${l_width}"/>
       </geometry>
-        <origin xyz="${l2*0.5} 0 0" rpy="0 0 0" />
+        <origin xyz="${l2*0.5*mul} 0 0" rpy="0 0 0" />
       <material
         name="">
         <color
@@ -140,7 +140,7 @@
       <geometry>
         <box size="${l3*mul} ${l_width} ${l_width}"/>
       </geometry>
-        <origin xyz="${l3*0.5} 0 0" rpy="0 0 0" />
+        <origin xyz="${l3*0.5*mul} 0 0" rpy="0 0 0" />
       <material
         name="">
         <color
@@ -177,7 +177,7 @@
     </inertial>
     <visual>
       <geometry>
-         <box size="${l4} ${f_width} ${l_width}"/>
+         <box size="${l4} ${l_width} ${f_width}"/>
       </geometry>
         <origin xyz="${l4*0.5} 0 0" rpy="0 0 0" />
       <material
@@ -188,7 +188,7 @@
     </visual>
     <collision>
       <geometry>
-         <box size="${l4} ${f_width} ${l_width}"/>
+         <box size="${l4} ${l_width} ${f_width}"/>
       </geometry>
         <origin xyz="0 0 0" rpy="0 0 0" />
     </collision>
@@ -197,7 +197,7 @@
     name="${name}4_joint"
     type="continuous">
     <origin
-      xyz="${l3+l_width*0.5} 0 0"
+      xyz="${l3*mul+l_width*0.5} 0 0"
       rpy="0 0 0" />
     <parent
       link="${name}3_link" />
