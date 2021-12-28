@@ -48,7 +48,11 @@
       </geometry>
     </collision>
   </link>
-  
+  <gazebo reference="body_link">
+    <mu1>1</mu1>
+    <mu2>1</mu2>
+    <material>Gazebo/Black</material>
+  </gazebo>
   
   <xacro:macro name="leg" params="name dx dy direction mul">
      <link
@@ -89,7 +93,21 @@
     <axis
       xyz="0 0 1" />
   </joint>
-  
+   <transmission name="${name}1_trans">
+    <type>transmission_interface/SimpleTransmission</type>
+    <actuator name="${name}1_motor">
+      <mechanicalReduction>1</mechanicalReduction>
+    </actuator>
+    <joint name="${name}1_joint">
+      <hardwareInterface>hardware_interface/PositionJointInterface</hardwareInterface>
+    </joint>
+  </transmission>
+      <gazebo reference="${name}1_link">
+    <mu1>3</mu1>
+    <mu2>3</mu2>
+    <material>Gazebo/Black</material>
+    <dampingFactor>0.3</dampingFactor>
+  </gazebo>
       <link
     name="${name}2_link">
     <inertial>
@@ -128,7 +146,22 @@
     <axis
       xyz="0 1 0" />
   </joint>
-  
+    <transmission name="${name}2_trans">
+    <type>transmission_interface/SimpleTransmission</type>
+    <actuator name="${name}2_motor">
+      <mechanicalReduction>1</mechanicalReduction>
+    </actuator>
+    <joint name="${name}2_joint">
+      <hardwareInterface>hardware_interface/PositionJointInterface</hardwareInterface>
+    </joint>
+    </transmission>
+    <gazebo reference="${name}2_link">
+    <mu1>3</mu1>
+    <mu2>3</mu2>
+    <material>Gazebo/Black</material>
+    <dampingFactor>0.3</dampingFactor>
+  </gazebo>
+
         <link
     name="${name}3_link">
     <inertial>
@@ -167,7 +200,22 @@
     <axis
       xyz="0 1 0" />
   </joint>
-  
+    <transmission name="${name}3_trans">
+    <type>transmission_interface/SimpleTransmission</type>
+    <actuator name="${name}3_motor">
+      <mechanicalReduction>1</mechanicalReduction>
+    </actuator>
+    <joint name="${name}3_joint">
+      <hardwareInterface>hardware_interface/PositionJointInterface</hardwareInterface>
+    </joint>
+  </transmission>
+    <gazebo reference="${name}3_link">
+    <mu1>3</mu1>
+    <mu2>3</mu2>
+    <material>Gazebo/Black</material>
+    <dampingFactor>0.3</dampingFactor>
+  </gazebo>
+
   <link
     name="${name}4_link">
     <inertial>
@@ -206,7 +254,22 @@
     <axis
       xyz="0 1 0" />
   </joint>
-  
+    <transmission name="${name}4_trans">
+    <type>transmission_interface/SimpleTransmission</type>
+    <actuator name="${name}4_motor">
+      <mechanicalReduction>1</mechanicalReduction>
+    </actuator>
+    <joint name="${name}4_joint">
+      <hardwareInterface>hardware_interface/PositionJointInterface</hardwareInterface>
+    </joint>
+  </transmission>
+    <gazebo reference="${name}4_link">
+    <mu1>3</mu1>
+    <mu2>3</mu2>
+    <material>Gazebo/Black</material>
+    <dampingFactor>0.3</dampingFactor>
+  </gazebo>
+ 
   </xacro:macro>
   
     <xacro:leg name="left_forward" dx="${l1_pos_x}" dy="${l1_pos_y}" direction="${pi/2}" mul="${dl_forward}" />
@@ -215,4 +278,11 @@
     <xacro:leg name="right_middle" dx="${l2_pos_x}" dy="${-l2_pos_y}" direction="${-pi/2}" mul="${dl_middle}"/>
     <xacro:leg name="left_backward" dx="${l3_pos_x}" dy="${l3_pos_y}" direction="${pi/2}" mul="${dl_backward}"/>
     <xacro:leg name="right_backward" dx="${l3_pos_x}" dy="${-l3_pos_y}" direction="${-pi/2}" mul="${dl_backward}"/>
+    
+    <gazebo>
+    <plugin name="gazebo_ros_control" filename="libgazebo_ros_control.so">
+      <robotNamespace>/</robotNamespace>
+    </plugin>
+  </gazebo>
+    
 </robot>
