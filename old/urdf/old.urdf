@@ -25,6 +25,22 @@
     <xacro:property name="l2_pos_y" value="0.2"  />
      <xacro:property name="l3_pos_x" value="-0.4"  />
     <xacro:property name="l3_pos_y" value="0.2"  />
+    
+    <link name="world" />
+    
+        <joint
+    name="fix_joint"
+    type="fixed">
+    <origin
+      xyz="0 0 2"
+      rpy="0 0 0" />
+    <parent
+      link="world" />
+    <child
+      link="body_link" />
+
+  </joint>
+    
    <link
     name="body_link">
     <inertial>
@@ -84,7 +100,7 @@
     name="${name}1_joint"
     type="continuous">
     <origin
-      xyz="${dx} ${dy} ${body_height*0.5 + l_width*0.5}"
+      xyz="${dx} ${dy} ${body_height*0.5 + l_width*0.5+0.01}"
       rpy="0 0 ${direction}" />
     <parent
       link="body_link" />

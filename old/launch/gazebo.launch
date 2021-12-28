@@ -12,6 +12,35 @@
     args="-urdf -param robot_description -model old"
     output="screen" />
 
+    <rosparam command="load" file="$(find old)/config/control.yaml" />
     
+    <node name="controller_spawner" pkg="controller_manager" type="spawner"
+              respawn="false" output="screen"
+              args="joint_state_controller
+              left_forward1_position_controller
+              left_forward2_position_controller
+              left_forward3_position_controller
+              left_forward4_position_controller
+              left_middle1_position_controller
+              left_middle2_position_controller
+              left_middle3_position_controller
+              left_middle4_position_controller
+              left_backward1_position_controller
+              left_backward2_position_controller
+              left_backward3_position_controller
+              left_backward4_position_controller
+              right_forward1_position_controller
+              right_forward2_position_controller
+              right_forward3_position_controller
+              right_forward4_position_controller
+              right_middle1_position_controller
+              right_middle2_position_controller
+              right_middle3_position_controller
+              right_middle4_position_controller
+              right_backward1_position_controller
+              right_backward2_position_controller
+              right_backward3_position_controller
+              right_backward4_position_controller">
+        </node>
     
 </launch>
