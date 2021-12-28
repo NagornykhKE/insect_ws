@@ -14,7 +14,11 @@
     <xacro:property name="l4" value="0.02" />
     <xacro:property name="l_width" value="0.02" />
     <xacro:property name="f_width" value="0.1" />
-<!--      -->
+    <xacro:property name="dl_forward" value="1" />
+    <xacro:property name="dl_middle" value="1.2" />
+    <xacro:property name="dl_backward" value="1.4" />
+    
+
     <xacro:property name="l1_pos_x" value="0.4"  />
     <xacro:property name="l1_pos_y" value="0.2"  />
      <xacro:property name="l2_pos_x" value="0"  />
@@ -30,7 +34,7 @@
     </inertial>
     <visual>
       <geometry>
-        <box size="${body_length} ${body_width} ${body_height}"/>
+        <box size="${body_length} ${body_width} ${body_height}"/><xacro:property name="f_width" value="0.1" />
       </geometry>
       <material
         name="">
@@ -46,7 +50,7 @@
   </link>
   
   
-  <xacro:macro name="leg" params="name dx dy direction">
+  <xacro:macro name="leg" params="name dx dy direction mul">
      <link
     name="${name}1_link">
     <inertial>
@@ -95,7 +99,7 @@
     </inertial>
     <visual>
       <geometry>
-        <box size="${l2} ${l_width} ${l_width}"/>
+        <box size="${l2*mul} ${l_width} ${l_width}"/>
       </geometry>
         <origin xyz="${l2*0.5} 0 0" rpy="0 0 0" />
       <material
@@ -106,7 +110,7 @@
     </visual>
     <collision>
       <geometry>
-         <box size="${l2} ${l_width} ${l_width}"/>
+         <box size="${l2*mul} ${l_width} ${l_width}"/>
       </geometry>
         <origin xyz="0 0 0" rpy="0 0 0" />
     </collision>
@@ -115,7 +119,7 @@
     name="${name}2_joint"
     type="continuous">
     <origin
-      xyz="${l1+l_width*0.5} 0 0"
+      xyz="${l1*mul+l_width*0.5} 0 0"
       rpy="0 0 0" />
     <parent
       link="${name}1_link" />
@@ -134,7 +138,7 @@
     </inertial>
     <visual>
       <geometry>
-        <box size="${l3} ${l_width} ${l_width}"/>
+        <box size="${l3*mul} ${l_width} ${l_width}"/>
       </geometry>
         <origin xyz="${l3*0.5} 0 0" rpy="0 0 0" />
       <material
@@ -145,7 +149,7 @@
     </visual>
     <collision>
       <geometry>
-         <box size="${l3} ${l_width} ${l_width}"/>
+         <box size="${l3*mul} ${l_width} ${l_width}"/>
       </geometry>
         <origin xyz="0 0 0" rpy="0 0 0" />
     </collision>
@@ -154,7 +158,7 @@
     name="${name}3_joint"
     type="continuous">
     <origin
-      xyz="${l2+l_width*0.5} 0 0"
+      xyz="${l2*mul+l_width*0.5} 0 0"
       rpy="0 0 0" />
     <parent
       link="${name}2_link" />
@@ -205,10 +209,10 @@
   
   </xacro:macro>
   
-    <xacro:leg name="left_forward" dx="${l1_pos_x}" dy="${l1_pos_y}" direction="${pi/2}" />
-    <xacro:leg name="right_forward" dx="${l1_pos_x}" dy="${-l1_pos_y}" direction="${-pi/2}"/>
-    <xacro:leg name="left_middle" dx="${l2_pos_x}" dy="${l2_pos_y}" direction="${pi/2}" />
-    <xacro:leg name="right_middle" dx="${l2_pos_x}" dy="${-l2_pos_y}" direction="${-pi/2}"/>
-    <xacro:leg name="left_backward" dx="${l3_pos_x}" dy="${l3_pos_y}" direction="${pi/2}" />
-    <xacro:leg name="right_backward" dx="${l3_pos_x}" dy="${-l3_pos_y}" direction="${-pi/2}"/>
+    <xacro:leg name="left_forward" dx="${l1_pos_x}" dy="${l1_pos_y}" direction="${pi/2}" mul="${dl_forward}" />
+    <xacro:leg name="right_forward" dx="${l1_pos_x}" dy="${-l1_pos_y}" direction="${-pi/2}" mul="${dl_forward}"/>
+    <xacro:leg name="left_middle" dx="${l2_pos_x}" dy="${l2_pos_y}" direction="${pi/2}" mul="${dl_middle}"/>
+    <xacro:leg name="right_middle" dx="${l2_pos_x}" dy="${-l2_pos_y}" direction="${-pi/2}" mul="${dl_middle}"/>
+    <xacro:leg name="left_backward" dx="${l3_pos_x}" dy="${l3_pos_y}" direction="${pi/2}" mul="${dl_backward}"/>
+    <xacro:leg name="right_backward" dx="${l3_pos_x}" dy="${-l3_pos_y}" direction="${-pi/2}" mul="${dl_backward}"/>
 </robot>
